@@ -1,0 +1,21 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "dependencyDashboardApproval": true,
+  "description": [ "The default configuration that is extended by the onboarding PRs" ],
+  "extends": [
+    "config:best-practices",
+    ":dependencyDashboard"
+  ],
+  "prConcurrentLimit": 10,
+  "prHourlyLimit": 10,
+  "ignoreDeps": [],
+  "ignorePaths": [],
+  "packageRules": [
+    {
+      "description": [ "Disable version updates for Vespa artifacts" ],
+      "matchPackageNames": ["/^com\\.yahoo\\.vespa/", "^/ai\\.vespa/"],
+      "matchManagers": ["maven", "gradle"],
+      "enabled": false
+    }
+  ]
+}
