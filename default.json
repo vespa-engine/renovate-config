@@ -1,15 +1,21 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "dependencyDashboardApproval": true,
+  "dependencyDashboardOSVVulnerabilitySummary": "all",
   "description": [ "The default configuration that is extended by the onboarding PRs" ],
   "extends": [
     "config:best-practices",
+    "security:openssf-scorecard",
     ":dependencyDashboard"
   ],
   "prConcurrentLimit": 10,
   "prHourlyLimit": 10,
   "ignoreDeps": [],
   "ignorePaths": [],
+  "osvVulnerabilityAlerts": true,
+  "vulnerabilityAlerts": {
+    "enabled": true
+  },
   "packageRules": [
     {
       "description": [ "Disable version updates for Vespa artifacts" ],
