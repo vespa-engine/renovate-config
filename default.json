@@ -21,7 +21,7 @@
   "packageRules": [
     {
       "description": [ "Disable version updates for Vespa artifacts" ],
-      "matchPackageNames": ["/^com\\.yahoo\\.vespa/", "^/ai\\.vespa/"],
+      "matchPackageNames": ["/^com\\.yahoo\\.vespa/", "/^ai\\.vespa/"],
       "matchManagers": ["maven", "gradle"],
       "enabled": false
     }
