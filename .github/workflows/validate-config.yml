@@ -1,0 +1,29 @@
+name: Validate Renovate Configuration
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  validate:
+    name: Validate Configuration
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+
+      - name: Validate Renovate configuration
+        run: |
+          npx --yes --package renovate -- renovate-config-validator --strict
+
+      - name: Validate individual config files
+        run: |
+          npx --yes --package renovate -- renovate-config-validator default.json
+          npx --yes --package renovate -- renovate-config-validator org-inherited-config.json
