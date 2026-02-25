@@ -29,7 +29,7 @@
       "description": [ "Group all GitHub Actions updates into a single PR" ],
       "matchManagers": ["github-actions"],
       "groupName": "GitHub Actions"
-    }
+    },
     {
       "description": [ "Group Maven: org.codehaus.plexus" ],
       "matchPackageNames": ["/^org\\.codehaus\\.plexus/"],
