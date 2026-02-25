@@ -24,6 +24,17 @@
       "matchPackageNames": ["/^com\\.yahoo\\.vespa/", "/^ai\\.vespa/"],
       "matchManagers": ["maven", "gradle"],
       "enabled": false
+    },
+    {
+      "description": [ "Group all GitHub Actions updates into a single PR" ],
+      "matchManagers": ["github-actions"],
+      "groupName": "GitHub Actions"
+    }
+    {
+      "description": [ "Group Maven: org.codehaus.plexus" ],
+      "matchPackageNames": ["/^org\\.codehaus\\.plexus/"],
+      "matchManagers": ["maven", "gradle"],
+      "groupName": "Maven: Codehaus Plexus"
     }
   ]
 }
