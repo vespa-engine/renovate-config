@@ -9,6 +9,7 @@
     "security:openssf-scorecard",
     ":dependencyDashboard"
   ],
+  "semanticCommits": "enabled",
   "prConcurrentLimit": 10,
   "prHourlyLimit": 10,
   "ignoreDeps": [],
