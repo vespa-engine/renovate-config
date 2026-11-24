@@ -126,7 +126,7 @@
     {
       "description": "Python tooling",
       "matchDatasources": ["pypi"],
-      "matchPackageNames": ["ruff", "ty", "mypy", "pytest", "pytest-*", "uv_build", "hatchling", "virtualenv"],
+      "matchPackageNames": ["ruff", "ty", "mypy", "pytest", "pytest-*", "uv-build","hatchling", "virtualenv"],
       "matchUpdateTypes": ["minor", "patch"],
       "groupName": "Python tooling"
     },
