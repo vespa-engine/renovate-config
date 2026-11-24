@@ -1,7 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "assigneesFromCodeOwners": true,
-  "dependencyDashboardApproval": true,
   "dependencyDashboardOSVVulnerabilitySummary": "all",
   "description": [ "The default configuration that is extended by the onboarding PRs" ],
   "extends": [
@@ -10,8 +9,13 @@
     ":dependencyDashboard"
   ],
   "semanticCommits": "enabled",
-  "prConcurrentLimit": 10,
+  "prConcurrentLimit": 5,
   "prHourlyLimit": 10,
+  "timezone": "Europe/Oslo",
+  "schedule": ["* 0-6 * * 1"],
+  "major": { "dependencyDashboardApproval": true },
+  "digest": { "dependencyDashboardApproval": true },
+  "lockFileMaintenance": { "dependencyDashboardApproval": true },
   "ignoreDeps": [],
   "ignorePaths": [],
   "osvVulnerabilityAlerts": true,
@@ -37,6 +41,125 @@
       "matchPackageNames": ["/^org\\.codehaus\\.plexus/"],
       "matchManagers": ["maven", "gradle"],
       "groupName": "Maven: Codehaus Plexus"
+    },
+    {
+      "description": "GitHub Actions are pinned as vX@sha, so tag bumps are digest updates; don't let them gate the GitHub Actions group",
+      "matchManagers": ["github-actions"],
+      "matchUpdateTypes": ["digest", "pinDigest"],
+      "dependencyDashboardApproval": false
+    },
+    {
+      "description": "Maven build plugins",
+      "matchDatasources": ["maven"],
+      "matchPackageNames": ["org.apache.maven.plugins:**", "org.codehaus.mojo:**"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "Maven plugins"
+    },
+    {
+      "description": "Google API client libraries",
+      "matchDatasources": ["maven"],
+      "matchPackageNames": ["com.google.apis:**", "com.google.api-client:**"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "Google API clients"
+    },
+    {
+      "description": "Azure SDK for Java and MSAL",
+      "matchDatasources": ["maven"],
+      "matchPackageNames": ["com.azure:**", "com.azure.resourcemanager:**", "com.microsoft.azure:msal4j"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "Azure SDK for Java"
+    },
+    {
+      "description": "AWS SDK for Go (v1, v2, smithy, lambda)",
+      "matchManagers": ["gomod"],
+      "matchPackageNames": ["github.com/aws/**"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "AWS SDK for Go"
+    },
+    {
+      "description": "Go extended standard library",
+      "matchManagers": ["gomod"],
+      "matchPackageNames": ["golang.org/x/**"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "golang.org/x"
+    },
+    {
+      "description": "Charm TUI libraries",
+      "matchManagers": ["gomod"],
+      "matchPackageNames": ["charm.land/**", "github.com/charmbracelet/**", "github.com/mattn/go-runewidth"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "Charm TUI"
+    },
+    {
+      "description": "OpenTelemetry SDKs",
+      "matchPackageNames": ["go.opentelemetry.io/**", "@opentelemetry/**", "/^io\\.opentelemetry/"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "OpenTelemetry"
+    },
+    {
+      "description": "Terraform providers and modules: one non-major PR per repo",
+      "matchDatasources": ["terraform-provider", "terraform-module"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "Terraform"
+    },
+    {
+      "description": "Python ML stack",
+      "matchDatasources": ["pypi"],
+      "matchPackageNames": ["torch", "torchvision", "transformers", "huggingface-hub", "hf-xet", "numpy", "onnxruntime", "onnxruntime-gpu", "opencv-python", "mteb"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "Python ML stack"
+    },
+    {
+      "description": "Jupyter",
+      "matchDatasources": ["pypi"],
+      "matchPackageNames": ["jupyterlab", "notebook", "ipython", "pyzmq", "jupyter*"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "Jupyter"
+    },
+    {
+      "description": "pydantic and its core",
+      "matchDatasources": ["pypi"],
+      "matchPackageNames": ["pydantic", "pydantic-core", "pydantic_core", "pydantic-settings", "pydantic_settings"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "pydantic"
+    },
+    {
+      "description": "Python tooling",
+      "matchDatasources": ["pypi"],
+      "matchPackageNames": ["ruff", "ty", "mypy", "pytest", "pytest-*", "uv_build", "hatchling", "virtualenv"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "Python tooling"
+    },
+    {
+      "description": "JS type definitions",
+      "matchManagers": ["npm"],
+      "matchPackageNames": ["@types/**"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "JS types"
+    },
+    {
+      "description": "JS build tooling: bundlers, transpilers, TypeScript",
+      "matchManagers": ["npm"],
+      "extends": ["packages:vite"],
+      "matchPackageNames": ["typescript", "webpack", "webpack-cli", "webpack-dev-server", "webpack-*", "*-loader", "@babel/**", "babel-*", "esbuild", "rollup", "@rollup/**", "@swc/**", "terser", "postcss", "autoprefixer", "tsx", "ts-node"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "JS build tooling"
+    },
+    {
+      "description": "JS lint and format tooling",
+      "matchManagers": ["npm"],
+      "extends": ["packages:linters"],
+      "matchPackageNames": ["lint-staged", "husky", "globals"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "JS lint tooling"
+    },
+    {
+      "description": "JS test tooling",
+      "matchManagers": ["npm"],
+      "extends": ["packages:test"],
+      "matchPackageNames": ["vitest", "@vitest/**", "jest", "jest-*", "@jest/**", "babel-jest", "ts-jest", "@testing-library/**", "playwright", "@playwright/**", "jsdom", "happy-dom", "msw", "sinon", "@sinonjs/**", "webdriverio", "@wdio/**", "expect-webdriverio"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "JS test tooling"
     }
   ]
 }
